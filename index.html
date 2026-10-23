@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>منظم وقت دكتور الأسنان 🦷</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#090d16',
+                        cardBg: '#131c2e',
+                        accent: '#38bdf8'
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Cairo -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: #090d16;
+            color: #f1f5f9;
+            -webkit-tap-highlight-color: transparent;
+            transform: translateZ(0);
+            backface-visibility: hidden;
+        }
+        .smooth-transition {
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+        ::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="pb-12 select-none">
+
+    <!-- Top Header -->
+    <header class="sticky top-0 z-50 bg-[#131c2e]/90 backdrop-blur-md border-b border-slate-800 px-4 py-3 flex justify-between items-center">
+        <div class="flex items-center space-x-2.5 space-x-reverse">
+            <div class="w-9 h-9 rounded-xl bg-sky-500/20 text-sky-400 flex items-center justify-center text-lg">
+                <i class="fa-solid fa-tooth"></i>
+            </div>
+            <div>
+                <h1 class="font-black text-sm text-white">طريق الأسنان 🦷</h1>
+                <p class="text-[10px] text-slate-400">القمة تليق بك</p>
+            </div>
+        </div>
+        <div class="bg-sky-500/10 text-sky-400 px-3 py-1 rounded-full text-xs font-bold border border-sky-500/20">
+            علمي علوم 🧬
+        </div>
+    </header>
+
+    <main class="max-w-md mx-auto px-4 mt-4 space-y-4">
+
+        <!-- Countdown Card -->
+        <section class="bg-gradient-to-br from-sky-600 to-indigo-700 rounded-2xl p-4 shadow-lg text-white relative overflow-hidden">
+            <div class="absolute -left-4 -bottom-4 text-white/10 text-7xl font-black">
+                <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <div class="relative z-10">
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-[11px] bg-white/20 px-2.5 py-0.5 rounded-full font-semibold">العد التنازلي للحلم 🎯</span>
+                    <span class="text-[11px] text-sky-200">البالطو الأبيض ينتظر</span>
+                </div>
+                <div id="countdown" class="grid grid-cols-4 gap-1.5 text-center mt-3">
+                    <div class="bg-black/20 backdrop-blur-sm py-2 rounded-xl">
+                        <span id="days" class="text-lg font-black block">00</span>
+                        <span class="text-[9px] text-sky-200">يوم</span>
+                    </div>
+                    <div class="bg-black/20 backdrop-blur-sm py-2 rounded-xl">
+                        <span id="hours" class="text-lg font-black block">00</span>
+                        <span class="text-[9px] text-sky-200">ساعة</span>
+                    </div>
+                    <div class="bg-black/20 backdrop-blur-sm py-2 rounded-xl">
+                        <span id="minutes" class="text-lg font-black block">00</span>
+                        <span class="text-[9px] text-sky-200">دقيقة</span>
+                    </div>
+                    <div class="bg-black/20 backdrop-blur-sm py-2 rounded-xl">
+                        <span id="seconds" class="text-lg font-black block">00</span>
+                        <span class="text-[9px] text-sky-200">ثانية</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Custom Timer Section -->
+        <section class="bg-[#131c2e] border border-slate-800/80 rounded-2xl p-4 text-center shadow-md">
+            <h3 class="font-bold text-xs text-slate-300 mb-2 flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-clock text-sky-400"></i> حدد وقت المذاكرة (بالدقائق)
+            </h3>
+            
+            <!-- Input to set custom time -->
+            <div class="flex justify-center items-center gap-2 mb-3">
+                <input type="number" id="custom-minutes-input" value="25" min="1" max="300" 
+                    class="w-20 bg-slate-900 border border-slate-800 text-center text-sky-400 font-black text-lg rounded-xl py-1 focus:outline-none focus:border-sky-500">
+                <button onclick="applyCustomTime()" class="bg-sky-500/20 hover:bg-sky-500/30 text-sky-400 border border-sky-500/30 px-3 py-1.5 rounded-xl text-xs font-bold smooth-transition">
+                    تأكيد الوقت
+                </button>
+            </div>
+
+            <div id="timer-display" class="text-4xl font-black text-sky-400 my-2 tracking-wider">25:00</div>
+            
+            <div class="flex justify-center gap-2 mt-3">
+                <button onclick="startTimer()" class="bg-emerald-500 hover:bg-emerald-600 active:scale-95 text-slate-950 font-bold px-5 py-2 rounded-xl text-xs smooth-transition"><i class="fa-solid fa-play ml-1"></i> بدء</button>
+                <button onclick="pauseTimer()" class="bg-amber-500 hover:bg-amber-600 active:scale-95 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs smooth-transition"><i class="fa-solid fa-pause"></i></button>
+                <button onclick="resetTimer()" class="bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-300 font-bold px-4 py-2 rounded-xl text-xs smooth-transition"><i class="fa-solid fa-rotate-right"></i></button>
+            </div>
+        </section>
+
+        <!-- Subjects Hours Tracker -->
+        <section class="bg-[#131c2e] border border-slate-800/80 rounded-2xl p-4 shadow-md">
+            <div class="flex justify-between items-center mb-3">
+                <h3 class="font-bold text-xs text-slate-300 flex items-center gap-1.5">
+                    <i class="fa-solid fa-book-open text-sky-400"></i> مواد علمي علوم وساعات اليوم
+                </h3>
+                <span id="total-hours-badge" class="text-[10px] bg-emerald-500/10 text-emerald-400 px-2 py-0.5 rounded-full font-bold">0 ساعات</span>
+            </div>
+            <div id="subjects-container" class="space-y-2.5">
+                <!-- Dynamic Subjects -->
+            </div>
+        </section>
+
+        <!-- Daily Tasks (To-Do List) -->
+        <section class="bg-[#131c2e] border border-slate-800/80 rounded-2xl p-4 shadow-md">
+            <h3 class="font-bold text-xs text-slate-300 mb-3 flex items-center gap-1.5">
+                <i class="fa-solid fa-list-check text-sky-400"></i> مهام دكتور الأسنان اليومية
+            </h3>
+            <form onsubmit="addTask(event)" class="flex gap-2 mb-3">
+                <input type="text" id="task-input" placeholder="مهمة جديدة (مثلاً: حل 50 سؤال أحياء)..." required
+                    class="flex-1 bg-slate-900 border border-slate-800 rounded-xl px-3 py-2 text-xs text-white focus:outline-none focus:border-sky-500">
+                <button type="submit" class="bg-sky-500 hover:bg-sky-600 active:scale-95 text-slate-950 font-bold px-3 py-2 rounded-xl text-xs smooth-transition">
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </form>
+            <ul id="tasks-list" class="space-y-2 max-h-52 overflow-y-auto">
+                <!-- Tasks -->
+            </ul>
+        </section>
+
+        <!-- Motivation Banner -->
+        <section class="bg-gradient-to-br from-teal-600 to-sky-700 rounded-2xl p-4 text-white shadow-md relative">
+            <h3 class="font-bold text-xs mb-1 flex items-center gap-1.5">
+                <i class="fa-solid fa-bolt text-amber-300"></i> تحفيز السهرة
+            </h3>
+            <p id="quote-text" class="text-xs text-slate-100 leading-relaxed font-medium">
+                "اصبر على تعب السهر، عشان بكرة تلبس البالطو الأبيض وتدخل كلية طب الأسنان.. حلمك قريب جداً! 🦷✨"
+            </p>
+        </section>
+
+    </main>
+
+    <!-- JavaScript Ultra Optimized -->
+    <script>
+        // Countdown
+        const examDate = new Date("June 15, 2027 09:00:00").getTime();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = examDate - now;
+            if (distance < 0) return;
+            document.getElementById("days").innerText = String(Math.floor(distance / (1000 * 60 * 60 * 24))).padStart(2, '0');
+            document.getElementById("hours").innerText = String(Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).padStart(2, '0');
+            document.getElementById("minutes").innerText = String(Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60))).padStart(2, '0');
+            document.getElementById("seconds").innerText = String(Math.floor((distance % (1000 * 60)) / 1000)).padStart(2, '0');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Custom Timer Logic
+        let timerInterval, timeLeft = 25 * 60, totalSetTime = 25 * 60, isRunning = false;
+
+        function applyCustomTime() {
+            pauseTimer();
+            const mins = parseInt(document.getElementById('custom-minutes-input').value);
+            if (isNaN(mins) || mins <= 0) return;
+            timeLeft = mins * 60;
+            totalSetTime = timeLeft;
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            let m = Math.floor(timeLeft / 60), s = timeLeft % 60;
+            document.getElementById('timer-display').innerText = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+        }
+
+        function startTimer() {
+            if (isRunning) return;
+            isRunning = true;
+            timerInterval = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateDisplay();
+                } else {
+                    pauseTimer();
+                    alert("عاش يا دكتور! خلصت وقت جلستك، خد راحة واشرب مية وارجع كمل حلمك 🦷💪");
+                }
+            }, 1000);
+        }
+
+        function pauseTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            pauseTimer();
+            timeLeft = totalSetTime;
+            updateDisplay();
+        }
+
+        // Subjects
+        let subjects = JSON.parse(localStorage.getItem('dental_mob_subj')) || [
+            { id: 1, name: "الأحياء (الأساس)", icon: "fa-dna", hours: 0 },
+            { id: 2, name: "الفيزياء", icon: "fa-atom", hours: 0 },
+            { id: 3, name: "الكيمياء", icon: "fa-flask", hours: 0 },
+            { id: 4, name: "الجيولوجيا", icon: "fa-mountain", hours: 0 },
+            { id: 5, name: "اللغة العربية", icon: "fa-book", hours: 0 },
+            { id: 6, name: "اللغة الأولى (إنجليزي)", icon: "fa-globe", hours: 0 },
+            { id: 7, name: "اللغة الثانية", icon: "fa-language", hours: 0 }
+        ];
+
+        function renderSubjects() {
+            const container = document.getElementById('subjects-container');
+            container.innerHTML = '';
+            let total = 0;
+            subjects.forEach(sub => {
+                total += sub.hours;
+                container.innerHTML += `
+                    <div class="flex items-center justify-between p-2.5 bg-slate-900/60 rounded-xl border border-slate-800/60">
+                        <div class="flex items-center space-x-2 space-x-reverse">
+                            <div class="w-7 h-7 rounded-lg bg-sky-500/10 text-sky-400 flex items-center justify-center text-xs">
+                                <i class="fa-solid ${sub.icon}"></i>
+                            </div>
+                            <span class="font-bold text-xs text-slate-200">${sub.name}</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="adjustHours(${sub.id}, -1)" class="w-7 h-7 bg-slate-800 active:scale-90 text-slate-300 rounded-lg font-bold text-xs">-</button>
+                            <span class="w-5 text-center font-bold text-xs text-sky-400">${sub.hours}</span>
+                            <button onclick="adjustHours(${sub.id}, 1)" class="w-7 h-7 bg-sky-500 active:scale-90 text-slate-950 rounded-lg font-bold text-xs">+</button>
+                        </div>
+                    </div>
+                `;
+            });
+            document.getElementById('total-hours-badge').innerText = `${total} ساعات`;
+            localStorage.setItem('dental_mob_subj', JSON.stringify(subjects));
+        }
+
+        function adjustHours(id, amount) {
+            const sub = subjects.find(s => s.id === id);
+            if (sub) {
+                sub.hours = Math.max(0, sub.hours + amount);
+                renderSubjects();
+            }
+        }
+        renderSubjects();
+
+        // Tasks
+        let tasks = JSON.parse(localStorage.getItem('dental_mob_tasks')) || [
+            { id: 1, text: "حل 50 سؤال أحياء", completed: false }
+        ];
+
+        function renderTasks() {
+            const list = document.getElementById('tasks-list');
+            list.innerHTML = '';
+            tasks.forEach(t => {
+                list.innerHTML += `
+                    <li class="flex items-center justify-between p-2 bg-slate-900/60 rounded-xl border border-slate-800/60">
+                        <label class="flex items-center space-x-2 space-x-reverse cursor-pointer flex-1">
+                            <input type="checkbox" ${t.completed ? 'checked' : ''} onchange="toggleTask(${t.id})" class="w-3.5 h-3.5 text-sky-500 rounded">
+                            <span class="text-xs ${t.completed ? 'line-through text-slate-500' : 'text-slate-300'}">${t.text}</span>
+                        </label>
+                        <button onclick="deleteTask(${t.id})" class="text-slate-500 hover:text-rose-400 p-1 text-xs"><i class="fa-solid fa-trash-can"></i></button>
+                    </li>
+                `;
+            });
+            localStorage.setItem('dental_mob_tasks', JSON.stringify(tasks));
+        }
+
+        function addTask(e) {
+            e.preventDefault();
+            const input = document.getElementById('task-input');
+            if (!input.value.trim()) return;
+            tasks.push({ id: Date.now(), text: input.value, completed: false });
+            input.value = '';
+            renderTasks();
+        }
+
+        function toggleTask(id) {
+            const t = tasks.find(x => x.id === id);
+            if (t) { t.completed = !t.completed; renderTasks(); }
+        }
+
+        function deleteTask(id) {
+            tasks = tasks.filter(x => x.id !== id);
+            renderTasks();
+        }
+
+        renderTasks();
+    </script>
+</body>
+</html>
